@@ -1,16 +1,18 @@
 # 🐾 Petit Bond
 
-A Taiwanese platform connecting pet lovers with local handmade jewelry makers. Discover unique, artisan-crafted jewelry for your beloved pets that matches your style perfectly.
+A web store for handmade pet jewelry that brings you and your beloved pet closer. Each piece is carefully crafted to showcase the beautiful bond between you and your furry friend.
 
 ## About
 
-**Petit Bond** is a web platform that showcases handmade jewelry designed for pets, created by local Taiwanese artisans. We believe every pet deserves beautiful, unique accessories just like their owners. Our mission is to support local makers and help pet lovers find handmade jewelry without turning to Amazon or eBay.
+**Petit Bond** is an e-commerce platform selling handmade pet jewelry. Every piece is created with love and attention to detail — capturing the special connection between pet and owner. 
 
-### Key Features
-- **Pet Jewelry Showcase** — Browse beautiful handmade jewelry designed specifically for pets
-- **Owner-Pet Matching** — Discover pieces that showcase the similarity between you and your pet
-- **Local Support** — All products are from Taiwanese artisans and makers
-- **Direct Connection** — Support local craftsmanship directly
+Currently in **MVP (Minimum Viable Product)** phase, we're building the foundation for a seamless shopping experience.
+
+### Features (In Progress)
+- **Product Catalog** — Browse handmade pet jewelry collections
+- **Owner-Pet Matching** — Find pieces that reflect the bond between you and your pet
+- **Shopping Cart & Checkout** — Easy purchasing experience
+- **Order Management** — Track your custom jewelry orders
 
 ## Getting Started
 
