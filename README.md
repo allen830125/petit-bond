@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐾 Petit Bond
+
+A Taiwanese platform connecting pet lovers with local handmade jewelry makers. Discover unique, artisan-crafted jewelry for your beloved pets that matches your style perfectly.
+
+## About
+
+**Petit Bond** is a web platform that showcases handmade jewelry designed for pets, created by local Taiwanese artisans. We believe every pet deserves beautiful, unique accessories just like their owners. Our mission is to support local makers and help pet lovers find handmade jewelry without turning to Amazon or eBay.
+
+### Key Features
+- **Pet Jewelry Showcase** — Browse beautiful handmade jewelry designed specifically for pets
+- **Owner-Pet Matching** — Discover pieces that showcase the similarity between you and your pet
+- **Local Support** — All products are from Taiwanese artisans and makers
+- **Direct Connection** — Support local craftsmanship directly
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+
+### Installation & Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev          # Start development server (default: port 3000)
+npm run build        # Build for production
+npm run start        # Run production build
+npm run lint         # Run ESLint
+npm run format       # Format code with Prettier
+npm run format:check # Check code formatting
+```
 
-## Learn More
+### Custom Port
 
-To learn more about Next.js, take a look at the following resources:
+To run on a different port:
+```bash
+npm run dev -- -p 3001
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Framework**: Next.js 16
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Code Quality**: ESLint, Prettier
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+We welcome contributions! Feel free to submit issues and pull requests.
