@@ -1,238 +1,153 @@
 'use client';
 
-import Link from 'next/link';
-
-interface Product {
-  id: string;
-  series: 'classic' | 'couture';
-  seriesName: string;
-  name: string;
-  sub: string;
-  bracelet: number;
-  necklace: number;
-  pair: number;
-  img: string;
-  desc: string;
-  stones: string[];
-}
-
-const PRODUCTS: Product[] = [
-  {
-    id: 'bichuan',
-    series: 'classic',
-    seriesName: '古典系列',
-    name: '碧玆',
-    sub: '珍珠 × 墨綠 玻璃',
-    bracelet: 1180,
-    necklace: 1480,
-    pair: 2380,
-    img: '/images/necklace-frame.jpg',
-    desc: '以淡水珍珠為主線，搭配以墨綠 玻璃與細膩的金色黑鎳，洋溢如部分詩意的溫柔。每個系列裡有著珍珠的日常款。',
-    stones: ['淡水珍珠', '墨綠 玻璃', '14K 金電鍍配件'],
-  },
-  {
-    id: 'caishi',
-    series: 'classic',
-    seriesName: '古典系列',
-    name: '彩釋',
-    sub: '珍珠 × 多彩天然石',
-    bracelet: 1280,
-    necklace: 1580,
-    pair: 2580,
-    img: '/images/board.jpg',
-    desc: '珍珠乎與天然天然石──翠綠、黑玉、金色與紫色，勻整座身上展示座上賓賓。',
-    stones: ['淡水珍珠', '翠綠', '黑玉', '金色石'],
-  },
-  {
-    id: 'zhicui',
-    series: 'couture',
-    seriesName: '編織系列',
-    name: '翠翠',
-    sub: '珍珠編織 × 石榴石花芯',
-    bracelet: 1480,
-    necklace: 1880,
-    pair: 2980,
-    img: '/images/pouch-bracelet.jpg',
-    desc: '流行珍珠手工編織，中央以石榴石花芯襯托，特彩而立高，每個系列裡有著罕見的珠飾之選。',
-    stones: ['淡水珍珠', '石榴石花芯', '紅鑽珠石'],
-  },
-  {
-    id: 'nuanyang',
-    series: 'couture',
-    seriesName: '編織系列',
-    name: '暖陽',
-    sub: '珍珠編織 × 黑水晶',
-    bracelet: 1380,
-    necklace: 1780,
-    pair: 2780,
-    img: '/images/dog-display.jpg',
-    desc: '珍珠編織帶入溫層色黑水晶，溫潤亮麗，日常配戴溫雅適閒品味。',
-    stones: ['淡水珍珠', '黑水晶', '金電鍍配件'],
-  },
-];
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import ProductCard from '@/components/ProductCard';
+import { PRODUCTS } from '@/lib/products';
 
 export default function HomePage() {
-  const formatPrice = (price: number) => `NT$${price.toLocaleString()}`;
+  const router = useRouter();
 
   return (
-    <div className="bg-ivory min-h-screen">
-      {/* ================= HERO SECTION ================= */}
-      <section className="bg-green-900 text-ivory overflow-hidden">
-        <div className="max-w-6xl mx-auto flex flex-wrap items-stretch">
-          {/* Left */}
-          <div className="flex-1 min-w-96 px-8 md:px-16 py-16 md:py-24 flex flex-col justify-center">
-            <div className="font-cormorant italic text-sm md:text-base text-gold-muted tracking-wider mb-6">
+    <div>
+      {/* ===== HERO ===== */}
+      <div className="bg-pb-forest text-[#f6efdd] overflow-hidden">
+        <div className="max-w-[1200px] mx-auto flex flex-wrap items-stretch">
+          <div className="flex-1 basis-[420px] px-[clamp(24px,4vw,64px)] py-[clamp(48px,6vw,88px)] flex flex-col justify-center">
+            <div className="font-cormorant italic text-[clamp(15px,1.6vw,18px)] text-[#d6bd84] tracking-widest mb-[18px]">
               Handmade pearl beadwork
             </div>
-            <h1 className="font-noto-serif-tc font-semibold text-5xl md:text-6xl leading-tight text-ivory mb-6">
-              你更柔<br />系更暖
+            <h1 className="font-serif font-semibold text-[clamp(40px,6vw,60px)] leading-[1.26] text-[#f6efdd] mb-2">
+              你更重視
+              <br />
+              珍更溫情
             </h1>
             <div className="w-14 h-px bg-gold my-6" />
-            <p className="text-text-light text-lg leading-loose max-w-lg mb-8">
-              一件件手工串起的珍珠 與天然石，讓你與寵物的溫感感，可愛到不行。
+            <p className="text-[#bcc7bb] text-[clamp(14px,1.5vw,16px)] leading-relaxed max-w-[380px] mb-9">
+              一件件手工串起的珍珠與天然晶石，陪伴你與孩子們，看得到小小美麗。
             </p>
-            <div className="flex gap-4 flex-wrap">
-              <button className="btn-gold-gradient px-8 py-4 rounded-sm text-sm tracking-widest font-medium">
-                探索作品系列
-              </button>
-              <button className="border border-gold/50 text-gold px-7 py-4 rounded-sm text-sm tracking-widest">
-                的故事
-              </button>
-            </div>
-          </div>
-
-          {/* Right - Hero Image */}
-          <div className="flex-1 min-w-96 relative bg-black">
-            <img
-              src="/images/necklace-frame.jpg"
-              alt="珍珠項鏈框架"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-4 border border-gold/35 pointer-events-none" />
-          </div>
-        </div>
-      </section>
-
-      {/* ================= PAIR STORY BAND ================= */}
-      <section className="bg-ivory py-16 md:py-24">
-        <div className="max-w-6xl mx-auto px-8 md:px-12 flex flex-wrap gap-8 md:gap-16 items-center">
-          {/* Image */}
-          <div className="flex-1 min-w-80">
-            <div className="rounded-3xl overflow-hidden bg-photo">
-              <img
-                src="/images/dog-display.jpg"
-                alt="寵物飾品展示"
-                className="w-full aspect-square object-cover"
-              />
-            </div>
-          </div>
-
-          {/* Text */}
-          <div className="flex-1 min-w-80">
-            <div className="inline-block bg-green-700 bg-opacity-20 text-green-700 text-xs tracking-widest px-4 py-2 rounded-full mb-6">
-              人寵綁定 · 系貨珍珠
-            </div>
-            <h2 className="font-noto-serif-tc font-semibold text-4xl md:text-5xl leading-tight text-ink mb-6">
-              為你喜樂，<br />
-              一串一串小屬於珍珠
-            </h2>
-            <p className="text-text-secondary text-lg leading-relaxed mb-4">
-              任何一串都是我的。你的滋味，與珍珠古蹟，用不同方向珍珠石作製成──更是您珠繪，就是你與寵物共用了的記念。
-            </p>
-            <p className="text-text-muted text-base leading-relaxed">
-              Petit Bond，取自於法文「小的連繫」。任何親伴你的狗狗都能夠得到。
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= FEATURED PRODUCTS ================= */}
-      <section className="bg-ivory-card border-t border-gray-200 py-16 md:py-24">
-        <div className="max-w-6xl mx-auto px-8 md:px-12">
-          <div className="text-center mb-12">
-            <div className="text-xs tracking-widest uppercase text-gold mb-3">Featured</div>
-            <h2 className="font-noto-serif-tc font-semibold text-4xl md:text-5xl text-ink">
-              精選作品
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {PRODUCTS.map((product) => (
-              <Link
-                key={product.id}
-                href={`/shop/${product.id}`}
-                className="group cursor-pointer"
+            <div className="flex gap-[14px] flex-wrap">
+              <button
+                onClick={() => router.push('/shop')}
+                className="cursor-pointer text-pb-green font-medium text-[14px] tracking-widest px-8 py-[15px] rounded-sm hover:opacity-90 transition-opacity"
+                style={{
+                  backgroundImage: 'linear-gradient(135deg, #e4cd91, #c6a25a)',
+                }}
               >
-                <div className="relative rounded-2xl overflow-hidden aspect-square bg-photo mb-4">
-                  <img
-                    src={product.img}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <span className="absolute top-3 left-3 bg-green-900/82 text-gold text-xs tracking-widest px-3 py-1 rounded-full">
-                    {product.seriesName}
-                  </span>
-                </div>
+                探索精選系列
+              </button>
+              <button
+                onClick={() => router.push('/story')}
+                className="cursor-pointer border border-[rgba(198,162,90,.5)] text-[#e4cd91] text-[14px] tracking-widest px-7 py-[15px] rounded-sm hover:bg-[rgba(198,162,90,.1)] transition-colors"
+              >
+                品牌故事
+              </button>
+            </div>
+          </div>
+          <div className="flex-1 basis-[380px] relative bg-black min-h-[380px]">
+            <Image
+              src="/images/pouch-bracelet.jpg"
+              alt="珍珠 溫情"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-[18px] border border-[rgba(228,205,145,.35)] pointer-events-none" />
+          </div>
+        </div>
+      </div>
 
-                <div className="px-2">
-                  <h3 className="font-noto-serif-tc text-2xl text-ink mb-2">
-                    {product.name}
-                  </h3>
-                  <p className="text-text-muted text-sm mb-3">{product.sub}</p>
-                  <p className="text-ink font-medium text-sm">
-                    {formatPrice(Math.min(product.bracelet, product.necklace))} 起
-                  </p>
-                </div>
-              </Link>
+      {/* ===== PAIR STORY BAND ===== */}
+      <div className="bg-[#f8f4ea]">
+        <div className="max-w-[1120px] mx-auto px-[clamp(24px,4vw,48px)] py-[clamp(56px,7vw,96px)] flex flex-wrap gap-[clamp(32px,5vw,72px)] items-center">
+          <div className="flex-1 basis-[300px] relative">
+            <Image
+              src="/images/board.jpg"
+              alt="是孩子的配飾"
+              width={400}
+              height={500}
+              className="w-full rounded-card-lg shadow-[0_30px_60px_-34px_rgba(30,50,40,.45)]"
+            />
+          </div>
+          <div className="flex-1 basis-[340px]">
+            <div className="inline-block bg-[#e8ede4] text-green-700 text-xs tracking-widest px-4 py-[7px] rounded-pill mb-[22px]">
+              人寵物配飾 · 新品系列
+            </div>
+            <h2 className="font-serif font-semibold text-[clamp(28px,3.6vw,40px)] leading-[1.4] text-[#26241c] mb-5">
+              為你和孩子
+              <br />
+              串一條溫暖的小飾品
+            </h2>
+            <p className="text-[#6b6557] text-[clamp(14px,1.5vw,16px)] leading-[2.05] max-w-[440px] mb-[18px]">
+              每一條都是我用。你的寵愛與孩子們共用一串戲──用不同方式串起自己──就是你與孩子一起用不了的記憶。
+            </p>
+            <p className="text-[#8a8576] text-[13.5px] leading-[1.9]">
+              Petit
+              Bond，源自法文「小小的美麗」。以珍珠為起點，任何陪伴你的寵物都能看得。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* ===== FEATURED PRODUCTS ===== */}
+      <div className="bg-[#fffdf8] border-t border-[#efe9da]">
+        <div className="max-w-[1200px] mx-auto px-[clamp(20px,4vw,48px)] py-[clamp(56px,7vw,90px)]">
+          <div className="text-center mb-12">
+            <div className="text-xs tracking-[0.26em] uppercase text-[#b3a378] mb-3">
+              Featured
+            </div>
+            <h2 className="font-serif font-semibold text-[clamp(26px,3.4vw,36px)] text-[#26241c]">
+              精選商品
+            </h2>
+          </div>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[clamp(20px,3vw,34px)]">
+            {PRODUCTS.map((product) => (
+              <ProductCard key={product.id} {...product} />
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* ================= TWO SERIES ================= */}
-      <section className="bg-ivory py-16 md:py-24">
-        <div className="max-w-6xl mx-auto px-8 md:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {/* Classic Series */}
-            <Link
-              href="/shop?series=classic"
-              className="cursor-pointer bg-ivory-card border border-gray-200 rounded-2xl p-8 md:p-10 hover:shadow-lg transition-shadow"
-            >
-              <div className="font-cormorant text-sm tracking-widest uppercase text-gold mb-3">
-                Classic
-              </div>
-              <h3 className="font-noto-serif-tc text-3xl text-green-800 mb-4">
-                古典系列
-              </h3>
-              <p className="text-text-secondary leading-relaxed mb-6 text-base">
-                以珍珠為底線基調，搭配天然石與金色黑鎳，洋溢如部分詩意的溫柔。
-              </p>
-              <span className="text-sm text-green-800 border-b border-gold pb-1 inline-block">
-                看古典系列 →
-              </span>
-            </Link>
+      {/* ===== TWO SERIES ===== */}
+      <div className="bg-[#f8f4ea]">
+        <div className="max-w-[1120px] mx-auto px-[clamp(20px,4vw,48px)] py-[clamp(48px,6vw,80px)] grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
+          <div
+            onClick={() => router.push('/shop?series=classic')}
+            className="cursor-pointer bg-[#fffdf8] border border-border-card rounded-[16px] px-[34px] py-[38px] hover:shadow-md transition-shadow"
+          >
+            <div className="font-cormorant text-[15px] tracking-widest uppercase text-[#b3a378] mb-[10px]">
+              Classic
+            </div>
+            <h3 className="font-serif text-[26px] text-pb-green mb-3">
+              經典系列
+            </h3>
+            <p className="text-[#6b6557] text-[14.5px] leading-[1.95] mb-[18px]">
+              以珍珠為基點，搭配天然晶石的優雅串設計。柔和，優雅，適合日常配戴。
+            </p>
+            <span className="text-[13px] text-pb-green border-b border-[#c6a25a] pb-[3px] hover:text-green-700">
+              查看經典系列 →
+            </span>
+          </div>
 
-            {/* Couture Series */}
-            <Link
-              href="/shop?series=couture"
-              className="cursor-pointer bg-green-800 text-ivory rounded-2xl p-8 md:p-10 hover:shadow-lg transition-shadow"
-            >
-              <div className="font-cormorant text-sm tracking-widest uppercase text-gold-light mb-3">
-                Couture
-              </div>
-              <h3 className="font-noto-serif-tc text-3xl text-ivory mb-4">
-                編織系列
-              </h3>
-              <p className="text-text-light leading-relaxed mb-6 text-base">
-                同樣以珍珠為線，以編織手藝與特別花樣得高起的花朵，更是為特貴的珠飾之選。
-              </p>
-              <span className="text-sm text-gold-light border-b border-gold pb-1 inline-block">
-                看編織系列 →
-              </span>
-            </Link>
+          <div
+            onClick={() => router.push('/shop?series=couture')}
+            className="cursor-pointer bg-pb-green text-[#f6efdd] rounded-[16px] px-[34px] py-[38px] hover:shadow-md transition-shadow"
+          >
+            <div className="font-cormorant text-[15px] tracking-widest uppercase text-[#d6bd84] mb-[10px]">
+              Couture
+            </div>
+            <h3 className="font-serif text-[26px] text-[#f6efdd] mb-3">
+              編織系列
+            </h3>
+            <p className="text-[#bcc7bb] text-[14.5px] leading-[1.95] mb-[18px]">
+              親手編織珍珠手串，以編織美感呈現尖銳迭起的花紋，是更講究的名品之選。
+            </p>
+            <span className="text-[13px] text-[#e4cd91] border-b border-[#c6a25a] pb-[3px] hover:text-[#d6bd84]">
+              查看編織系列 →
+            </span>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

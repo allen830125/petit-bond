@@ -3,11 +3,24 @@
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 
 interface FormData {
   name: string;
@@ -63,7 +76,7 @@ export function InquiryForm() {
         <CardContent className="space-y-6">
           {submitted && (
             <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-green-800 font-medium">
+              <p className="text-pb-green font-medium">
                 ✓ 感謝您的預購詢問！我們會盡快與您聯繫。
               </p>
             </div>
@@ -81,11 +94,7 @@ export function InquiryForm() {
                       姓名 <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="請輸入您的姓名"
-                        required
-                        {...field}
-                      />
+                      <Input placeholder="請輸入您的姓名" required {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -122,11 +131,7 @@ export function InquiryForm() {
                   <FormItem>
                     <FormLabel>電話</FormLabel>
                     <FormControl>
-                      <Input
-                        type="tel"
-                        placeholder="0912-345-678"
-                        {...field}
-                      />
+                      <Input type="tel" placeholder="0912-345-678" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
