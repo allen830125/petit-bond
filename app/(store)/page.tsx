@@ -1,5 +1,6 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface Product {
   id: number;
@@ -47,17 +48,17 @@ const products: Product[] = [
 
 export default function HomePage() {
   return (
-    <div className="bg-white">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="py-20 sm:py-28 border-b border-slate-100">
+      <section className="py-20 sm:py-28 border-b">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl sm:text-6xl font-light text-slate-900 mb-6 tracking-tight">
+          <h1 className="text-5xl sm:text-6xl font-bold text-foreground mb-6 tracking-tight">
             Petit Bond
           </h1>
-          <p className="text-xl text-slate-500 mb-4 font-light">
+          <p className="text-xl text-muted-foreground mb-4">
             手作寵物飾品工坊
           </p>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             每件飾品都是精心打造。融合設計與愛心，為您的毛孩帶來獨一無二的風采。
           </p>
         </div>
@@ -65,66 +66,58 @@ export default function HomePage() {
 
       {/* Products Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-3xl font-light text-slate-900 mb-16 text-center tracking-tight">
+        <h2 className="text-3xl font-bold text-foreground mb-16 text-center">
           作品集
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product) => (
-            <div
-              key={product.id}
-              className="group cursor-pointer flex flex-col h-full"
-            >
+            <Card key={product.id} className="flex flex-col h-full hover:shadow-lg transition-shadow">
               {/* Image */}
-              <div className="aspect-square bg-slate-50 flex items-center justify-center overflow-hidden mb-4 border border-slate-100">
-                <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-400 text-5xl">
+              <div className="aspect-square bg-muted flex items-center justify-center overflow-hidden rounded-t-lg border-b">
+                <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center text-muted-foreground text-5xl">
                   ✨
                 </div>
               </div>
 
               {/* Product Info */}
-              <div className="flex flex-col flex-1">
-                <h3 className="font-light text-slate-900 text-lg mb-2 tracking-tight">
-                  {product.name}
-                </h3>
-                <p className="text-slate-600 text-sm mb-4 font-light leading-relaxed">
-                  {product.description}
-                </p>
-                <p className="text-slate-500 text-xs mb-6 line-clamp-2 font-light">
+              <CardHeader className="flex-1">
+                <CardTitle className="text-lg">{product.name}</CardTitle>
+                <CardDescription>{product.description}</CardDescription>
+              </CardHeader>
+
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground line-clamp-2">
                   {product.story}
                 </p>
-                <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-100">
-                  <span className="text-lg font-light text-slate-900">
+                <div className="flex items-center justify-between pt-4 border-t">
+                  <span className="text-lg font-semibold text-foreground">
                     NT${product.price}
                   </span>
-                  <Link
-                    href={`/inquiry?product=${product.id}`}
-                    className="px-4 py-2 text-sm font-light text-slate-700 border border-slate-300 rounded hover:border-slate-400 hover:text-slate-900 transition-colors"
-                  >
-                    預購
-                  </Link>
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={`/inquiry?product=${product.id}`}>
+                      預購
+                    </Link>
+                  </Button>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 border-t border-slate-100">
+      <section className="py-20 border-t bg-muted/50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-light text-slate-900 mb-4 tracking-tight">
+          <h2 className="text-4xl font-bold text-foreground mb-4">
             喜歡的作品？
           </h2>
-          <p className="text-lg text-slate-600 mb-10 font-light">
+          <p className="text-lg text-muted-foreground mb-10">
             歡迎提出預購需求，我們會盡快為您製作。
           </p>
-          <Link
-            href="/inquiry"
-            className="inline-block px-8 py-3 border border-slate-900 text-slate-900 font-light rounded hover:bg-slate-900 hover:text-white transition-colors"
-          >
-            立即預購
-          </Link>
+          <Button asChild size="lg">
+            <Link href="/inquiry">立即預購</Link>
+          </Button>
         </div>
       </section>
     </div>
