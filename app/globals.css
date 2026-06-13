@@ -47,7 +47,25 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
 body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
+  background-color: #f8f4ea;
+  color: #26241c;
+  font-family: var(--font-noto-sans-tc, sans-serif);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Utility: Gold gradient for CTAs */
+.btn-gold-gradient {
+  background: linear-gradient(135deg, #e4cd91, #c6a25a);
+  color: #16382a;
+  font-weight: 500;
+  letter-spacing: 0.06em;
 }

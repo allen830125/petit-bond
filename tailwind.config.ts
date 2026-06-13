@@ -16,6 +16,11 @@ const config = {
         '2xl': '1400px',
       },
     },
+    fontFamily: {
+      cormorant: ['var(--font-cormorant)', 'serif'],
+      'noto-serif-tc': ['var(--font-noto-serif-tc)', 'serif'],
+      'noto-sans-tc': ['var(--font-noto-sans-tc)', 'sans-serif'],
+    },
     extend: {
       colors: {
         border: 'hsl(var(--border))',
@@ -51,6 +56,37 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        // Design system colors
+        green: {
+          900: '#0f2c20',
+          800: '#16382a',
+          700: '#1d4634',
+        },
+        gold: {
+          DEFAULT: '#c6a25a',
+          light: '#e4cd91',
+          muted: '#d6bd84',
+        },
+        ivory: {
+          DEFAULT: '#f8f4ea',
+          card: '#fffdf8',
+        },
+        ink: '#26241c',
+        text: {
+          primary: '#26241c',
+          secondary: '#6b6557',
+          muted: '#8a8576',
+          light: '#bcc7bb',
+          placeholder: '#a9a392',
+        },
+      },
+      borderColor: {
+        light: '#e8e2d2',
+        card: '#ece6d6',
+        input: '#ddd5c2',
+      },
+      backgroundColor: {
+        photo: '#efece3',
       },
       borderRadius: {
         lg: 'var(--radius)',
