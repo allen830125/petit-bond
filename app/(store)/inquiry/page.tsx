@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { PRODUCTS, Variant, fmt } from '@/lib/products';
 
-export default function PreOrderPage() {
+function PreInquiryForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -276,5 +276,13 @@ export default function PreOrderPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PreInquiryPage() {
+  return (
+    <Suspense>
+      <PreInquiryForm />
+    </Suspense>
   );
 }
