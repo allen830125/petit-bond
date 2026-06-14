@@ -11,19 +11,19 @@ export default function HomePage() {
   return (
     <div>
       {/* ===== HERO ===== */}
-      <div className="bg-pb-forest text-[#f6efdd] overflow-hidden">
+      <div className="bg-pb-forest text-cream-200 overflow-hidden">
         <div className="max-w-[1200px] mx-auto flex flex-wrap items-stretch">
           <div className="flex-1 basis-[420px] px-[clamp(24px,4vw,64px)] py-[clamp(48px,6vw,88px)] flex flex-col justify-center">
-            <div className="font-cormorant italic text-[clamp(15px,1.6vw,18px)] text-[#d6bd84] tracking-widest mb-[18px]">
+            <div className="font-cormorant italic text-[clamp(15px,1.6vw,18px)] text-gold-400 tracking-widest mb-[18px]">
               Handmade pearl beadwork
             </div>
-            <h1 className="font-serif font-semibold text-[clamp(40px,6vw,60px)] leading-[1.26] text-[#f6efdd] mb-2">
+            <h1 className="font-serif font-semibold text-[clamp(40px,6vw,60px)] leading-[1.26] text-cream-200 mb-2">
               你更重視
               <br />
               珍更溫情
             </h1>
-            <div className="w-14 h-px bg-gold my-6" />
-            <p className="text-[#bcc7bb] text-[clamp(14px,1.5vw,16px)] leading-relaxed max-w-[380px] mb-9">
+            <div className="w-14 h-px bg-gold-500 my-6" />
+            <p className="font-noto-sans-tc text-sage-300 text-[clamp(14px,1.5vw,16px)] leading-relaxed max-w-[380px] mb-9">
               一件件手工串起的珍珠與天然晶石，陪伴你與孩子們，看得到小小美麗。
             </p>
             <div className="flex gap-[14px] flex-wrap">
@@ -31,14 +31,14 @@ export default function HomePage() {
                 onClick={() => router.push('/shop')}
                 className="cursor-pointer text-pb-green font-medium text-[14px] tracking-widest px-8 py-[15px] rounded-sm hover:opacity-90 transition-opacity"
                 style={{
-                  backgroundImage: 'linear-gradient(135deg, #e4cd91, #c6a25a)',
+                  backgroundImage: 'linear-gradient(135deg, var(--color-gold-300), var(--color-gold-500))',
                 }}
               >
                 探索精選系列
               </button>
               <button
                 onClick={() => router.push('/story')}
-                className="cursor-pointer border border-[rgba(198,162,90,.5)] text-[#e4cd91] text-[14px] tracking-widest px-7 py-[15px] rounded-sm hover:bg-[rgba(198,162,90,.1)] transition-colors"
+                className="cursor-pointer border border-gold-500/50 text-gold-300 text-[14px] tracking-widest px-7 py-[15px] rounded-sm hover:bg-gold-500/10 transition-colors"
               >
                 品牌故事
               </button>
@@ -52,13 +52,13 @@ export default function HomePage() {
               className="object-cover"
               priority
             />
-            <div className="absolute inset-[18px] border border-[rgba(228,205,145,.35)] pointer-events-none" />
+            <div className="absolute inset-[18px] border border-gold-300/35 pointer-events-none" />
           </div>
         </div>
       </div>
 
       {/* ===== PAIR STORY BAND ===== */}
-      <div className="bg-[#f8f4ea]">
+      <div className="bg-cream-100">
         <div className="max-w-[1120px] mx-auto px-[clamp(24px,4vw,48px)] py-[clamp(56px,7vw,96px)] flex flex-wrap gap-[clamp(32px,5vw,72px)] items-center">
           <div className="flex-1 basis-[300px] relative">
             <Image
@@ -70,18 +70,18 @@ export default function HomePage() {
             />
           </div>
           <div className="flex-1 basis-[340px]">
-            <div className="inline-block bg-[#e8ede4] text-green-700 text-xs tracking-widest px-4 py-[7px] rounded-pill mb-[22px]">
+            <div className="inline-block bg-sage-100 text-forest-600 text-xs tracking-widest px-4 py-[7px] rounded-pill mb-[22px]">
               人寵物配飾 · 新品系列
             </div>
-            <h2 className="font-serif font-semibold text-[clamp(28px,3.6vw,40px)] leading-[1.4] text-[#26241c] mb-5">
+            <h2 className="font-serif font-semibold text-[clamp(28px,3.6vw,40px)] leading-[1.4] text-taupe-800 mb-5">
               為你和孩子
               <br />
               串一條溫暖的小飾品
             </h2>
-            <p className="text-[#6b6557] text-[clamp(14px,1.5vw,16px)] leading-[2.05] max-w-[440px] mb-[18px]">
+            <p className="font-noto-sans-tc text-taupe-600 text-[clamp(14px,1.5vw,16px)] leading-[2.05] max-w-[440px] mb-[18px]">
               每一條都是我用。你的寵愛與孩子們共用一串戲──用不同方式串起自己──就是你與孩子一起用不了的記憶。
             </p>
-            <p className="text-[#8a8576] text-[13.5px] leading-[1.9]">
+            <p className="font-noto-sans-tc text-taupe-500 text-[13.5px] leading-[1.9]">
               Petit
               Bond，源自法文「小小的美麗」。以珍珠為起點，任何陪伴你的寵物都能看得。
             </p>
@@ -90,13 +90,13 @@ export default function HomePage() {
       </div>
 
       {/* ===== FEATURED PRODUCTS ===== */}
-      <div className="bg-[#fffdf8] border-t border-[#efe9da]">
+      <div className="bg-cream-50 border-t border-gold-400">
         <div className="max-w-[1200px] mx-auto px-[clamp(20px,4vw,48px)] py-[clamp(56px,7vw,90px)]">
           <div className="text-center mb-12">
-            <div className="text-xs tracking-[0.26em] uppercase text-[#b3a378] mb-3">
+            <div className="text-xs tracking-[0.26em] uppercase text-taupe-400 mb-3">
               Featured
             </div>
-            <h2 className="font-serif font-semibold text-[clamp(26px,3.4vw,36px)] text-[#26241c]">
+            <h2 className="font-serif font-semibold text-[clamp(26px,3.4vw,36px)] text-taupe-800">
               精選商品
             </h2>
           </div>
@@ -109,40 +109,40 @@ export default function HomePage() {
       </div>
 
       {/* ===== TWO SERIES ===== */}
-      <div className="bg-[#f8f4ea]">
+      <div className="bg-cream-100">
         <div className="max-w-[1120px] mx-auto px-[clamp(20px,4vw,48px)] py-[clamp(48px,6vw,80px)] grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
           <div
             onClick={() => router.push('/shop?series=classic')}
-            className="cursor-pointer bg-[#fffdf8] border border-border-card rounded-[16px] px-[34px] py-[38px] hover:shadow-md transition-shadow"
+            className="cursor-pointer bg-cream-50 border border-cream-500 rounded-[16px] px-[34px] py-[38px] hover:shadow-md transition-shadow"
           >
-            <div className="font-cormorant text-[15px] tracking-widest uppercase text-[#b3a378] mb-[10px]">
+            <div className="font-cormorant text-[15px] tracking-widest uppercase text-taupe-400 mb-[10px]">
               Classic
             </div>
             <h3 className="font-serif text-[26px] text-pb-green mb-3">
               經典系列
             </h3>
-            <p className="text-[#6b6557] text-[14.5px] leading-[1.95] mb-[18px]">
+            <p className="font-noto-sans-tc text-taupe-600 text-[14.5px] leading-[1.95] mb-[18px]">
               以珍珠為基點，搭配天然晶石的優雅串設計。柔和，優雅，適合日常配戴。
             </p>
-            <span className="text-[13px] text-pb-green border-b border-[#c6a25a] pb-[3px] hover:text-green-700">
+            <span className="text-[13px] text-pb-green border-b border-gold-500 pb-[3px] hover:text-forest-500">
               查看經典系列 →
             </span>
           </div>
 
           <div
             onClick={() => router.push('/shop?series=couture')}
-            className="cursor-pointer bg-pb-green text-[#f6efdd] rounded-[16px] px-[34px] py-[38px] hover:shadow-md transition-shadow"
+            className="cursor-pointer bg-pb-green text-cream-200 rounded-[16px] px-[34px] py-[38px] hover:shadow-md transition-shadow"
           >
-            <div className="font-cormorant text-[15px] tracking-widest uppercase text-[#d6bd84] mb-[10px]">
+            <div className="font-cormorant text-[15px] tracking-widest uppercase text-gold-400 mb-[10px]">
               Couture
             </div>
-            <h3 className="font-serif text-[26px] text-[#f6efdd] mb-3">
+            <h3 className="font-serif text-[26px] text-cream-200 mb-3">
               編織系列
             </h3>
-            <p className="text-[#bcc7bb] text-[14.5px] leading-[1.95] mb-[18px]">
+            <p className="font-noto-sans-tc text-sage-300 text-[14.5px] leading-[1.95] mb-[18px]">
               親手編織珍珠手串，以編織美感呈現尖銳迭起的花紋，是更講究的名品之選。
             </p>
-            <span className="text-[13px] text-[#e4cd91] border-b border-[#c6a25a] pb-[3px] hover:text-[#d6bd84]">
+            <span className="text-[13px] text-gold-300 border-b border-gold-500 pb-[3px] hover:text-gold-400">
               查看編織系列 →
             </span>
           </div>

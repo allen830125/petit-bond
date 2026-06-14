@@ -1,25 +1,24 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Noto_Serif_TC, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-});
+// Cormorant Garamond 字體
+import "@fontsource/cormorant-garamond/400.css";
+import "@fontsource/cormorant-garamond/500.css";
+import "@fontsource/cormorant-garamond/600.css";
+import "@fontsource/cormorant-garamond/400-italic.css";
+import "@fontsource/cormorant-garamond/500-italic.css";
 
-const notoSerifTC = Noto_Serif_TC({
-  variable: "--font-noto-serif-tc",
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin", "cyrillic"],
-});
+// Noto Serif TC 字體
+import "@fontsource/noto-serif-tc/400.css";
+import "@fontsource/noto-serif-tc/500.css";
+import "@fontsource/noto-serif-tc/600.css";
+import "@fontsource/noto-serif-tc/700.css";
 
-const notoSansTC = Noto_Sans_TC({
-  variable: "--font-noto-sans-tc",
-  weight: ["300", "400", "500", "700"],
-  subsets: ["latin", "cyrillic"],
-});
+// Noto Sans TC 字體
+import "@fontsource/noto-sans-tc/300.css";
+import "@fontsource/noto-sans-tc/400.css";
+import "@fontsource/noto-sans-tc/500.css";
+import "@fontsource/noto-sans-tc/700.css";
 
 export const metadata: Metadata = {
   title: "Petit Bond - 手作寵物飾品",
@@ -32,12 +31,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="zh-TW"
-      className={`${cormorant.variable} ${notoSerifTC.variable} ${notoSansTC.variable} h-full antialiased scroll-smooth`}
-      style={{ scrollBehavior: 'smooth' }}
-    >
-      <body className="min-h-full flex flex-col font-noto-sans-tc">{children}</body>
+    <html lang="zh-TW" className="h-full antialiased scroll-smooth">
+      <body className="min-h-full flex flex-col font-noto-sans-tc">
+        {children}
+      </body>
     </html>
   );
 }

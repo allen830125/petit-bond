@@ -63,32 +63,60 @@ body {
 }
 
 @theme {
-  /* 品牌綠 */
-  --color-pb-forest:  #0f2c20;
-  --color-pb-green:   #16382a;
-  --color-pb-dark:    #1d4634;
+  /* 深绿色系 - 品牌主色 */
+  --color-forest-50: #f0f5f3;
+  --color-forest-100: #d0e0da;
+  --color-forest-200: #a1c4b3;
+  --color-forest-300: #72a78c;
+  --color-forest-400: #3d8a5f;
+  --color-forest-500: #1d4634;
+  --color-forest-600: #16382a;
+  --color-forest-700: #0f2c20;
+  --color-forest-800: #0a1f17;
+  --color-forest-900: #05140e;
 
-  /* 金色 */
-  --color-gold:       #c6a25a;
-  --color-gold-light: #e4cd91;
-  --color-gold-muted: #d6bd84;
+  /* 金色系 - 强调色 */
+  --color-gold-50: #fef8f0;
+  --color-gold-100: #fcefd5;
+  --color-gold-200: #f7e0a0;
+  --color-gold-300: #e4cd91;
+  --color-gold-400: #d6bd84;
+  --color-gold-500: #c6a25a;
+  --color-gold-600: #b39548;
+  --color-gold-700: #9d8036;
+  --color-gold-800: #805c24;
+  --color-gold-900: #4a3712;
 
-  /* 米白背景 */
-  --color-ivory:      #f8f4ea;
-  --color-ivory-card: #fffdf8;
-  --color-bg-photo:   #efece3;
+  /* 灰棕色系 - 中立色 */
+  --color-taupe-50: #f8f6f2;
+  --color-taupe-100: #f0ebe3;
+  --color-taupe-200: #e8e2d2;
+  --color-taupe-300: #d4ccc0;
+  --color-taupe-400: #b3a378;
+  --color-taupe-500: #8a8576;
+  --color-taupe-600: #6b6557;
+  --color-taupe-700: #3f3b31;
+  --color-taupe-800: #26241c;
+  --color-taupe-900: #0f0d0a;
 
-  /* 文字 */
-  --color-ink:         #26241c;
-  --color-muted:       #6b6557;
-  --color-muted-2:     #8a8576;
-  --color-placeholder: #a9a392;
-  --color-dark-body:   #bcc7bb;
+  /* 淡绿灰 - 辅助色 */
+  --color-sage-50: #f3f5f3;
+  --color-sage-100: #e8ede4;
+  --color-sage-200: #d0dccf;
+  --color-sage-300: #bcc7bb;
+  --color-sage-400: #7d8a7c;
+  --color-sage-500: #5a6b59;
 
-  /* 邊框 */
-  --color-border-default: #e8e2d2;
-  --color-border-card:    #ece6d6;
-  --color-border-input:   #ddd5c2;
+  /* 奶油色 - 背景色 */
+  --color-cream-50: #fffdf8;
+  --color-cream-100: #f8f4ea;
+  --color-cream-200: #f6efdd;
+  --color-cream-300: #efece3;
+  --color-cream-400: #efe9da;
+  --color-cream-500: #ece6d6;
+  --color-cream-600: #e8ede4;
+  --color-cream-700: #e8e2d2;
+  --color-cream-800: #faf9f5;
 
   /* shadcn/ui 相容（保留原有 hsl 變數） */
   --color-border:     hsl(var(--border));
@@ -113,4 +141,19 @@ body {
 
   /* 漸層 */
   --background-image-gold-gradient: linear-gradient(135deg, #e4cd91, #c6a25a);
+
+  /* 品牌色彩快捷變數 */
+  --color-pb-forest: var(--color-forest-700);
+  --color-pb-green: var(--color-forest-600);
+  --color-border-card: var(--color-cream-500);
+
+  /* 圓角 - Tailwind v4 */
+  --radius-card: 14px;
+  --radius-card-lg: 18px;
+  --radius-pill: 999px;
+
+  /* 字體 - Tailwind v4 */
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-noto-serif-tc: 'Noto Serif TC', serif;
+  --font-noto-sans-tc: 'Noto Sans TC', sans-serif;
 }

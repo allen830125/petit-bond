@@ -17,13 +17,13 @@ export default function Footer() {
               Petit Bond
             </span>
           </div>
-          <p className="text-[13.5px] leading-relaxed max-w-[300px]">
+          <p className="font-noto-sans-tc text-[13.5px] leading-relaxed max-w-[300px]">
             手做的珍珠手串品 · 人寵物配飾護理。你更重視，珍更溫情。
           </p>
         </div>
 
-        <div className="flex-shrink">
-          <div className="text-[12px] tracking-widest text-[#d6bd84] mb-[14px]">
+        <div className="flex-shrink font-noto-sans-tc">
+          <div className="font-cormorant text-[12px] tracking-widest text-[#d6bd84] mb-[14px] font-medium uppercase">
             商品
           </div>
           <div className="flex flex-col gap-[10px] text-[14px]">
@@ -54,8 +54,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex-shrink">
-          <div className="text-[12px] tracking-widest text-[#d6bd84] mb-[14px]">
+        <div className="flex-shrink font-noto-sans-tc">
+          <div className="font-cormorant text-[12px] tracking-widest text-[#d6bd84] mb-[14px] font-medium uppercase">
             聯絡
           </div>
           <div className="flex flex-col gap-[10px] text-[14px]">
@@ -66,7 +66,7 @@ export default function Footer() {
               LINE 官方帳號
             </span>
             <span
-              onClick={() => router.push('/order')}
+              onClick={() => router.push('/inquiry')}
               className="cursor-pointer text-[#e4cd91] hover:text-[#e4cd91] transition-colors"
             >
               填寫預購訂單 →
@@ -76,7 +76,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-[rgba(198,162,90,.18)]">
-        <div className="max-w-[1120px] mx-auto px-[clamp(24px,4vw,48px)] py-[18px] text-[12px] text-[#7d8a7c]">
+        <div className="font-noto-sans-tc max-w-[1120px] mx-auto px-[clamp(24px,4vw,48px)] py-[18px] text-[12px] text-[#7d8a7c]">
           © 2026 Petit Bond · 手做的珍珠手串品
         </div>
       </div>

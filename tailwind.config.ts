@@ -27,9 +27,9 @@ const config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
-        pill: '999px',
-        card: '14px',
-        'card-lg': '18px',
+        pill: 'var(--radius-pill)',
+        card: 'var(--radius-card)',
+        'card-lg': 'var(--radius-card-lg)',
       },
       keyframes: {
         'accordion-down': {

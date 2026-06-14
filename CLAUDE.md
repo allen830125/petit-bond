@@ -9,7 +9,7 @@ Petit Bond 是一個手作寵物飾品電商，採 MVP 架構。
 
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS v4
 - **ORM**: Prisma + MySQL
 - **Auth**: NextAuth.js
 - **AI**: Anthropic Claude API（商品描述自動生成）
@@ -36,7 +36,8 @@ prisma/
 ## 開發規範
 
 - 元件使用 TypeScript，props 必須定義型別
-- 樣式使用 Tailwind，不寫 inline style
+- 樣式使用 Tailwind CSS v4，不寫 inline style
+  - ⚠️ **Tailwind v4 配置差異**：顏色變數、主題設定改在 `app/globals.css` 的 `@theme` 區塊，**不在 tailwind.config**
 - API routes 放在 `app/api/` 下
 - 資料庫操作統一透過 Prisma Client
 - 環境變數從 `.env.local` 讀取，不可 hardcode

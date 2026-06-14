@@ -13,7 +13,7 @@ export default function ProductCard(props: ProductCardProps) {
     <Link href={`/shop/${props.id}`} className="cursor-pointer">
       <div className="relative rounded-card overflow-hidden aspect-[4/5] bg-bg-photo">
         <Image
-          src={props.img}
+          src={props.image || '/placeholder.jpg'}
           alt={props.name}
           fill
           className="object-cover"
@@ -24,11 +24,11 @@ export default function ProductCard(props: ProductCardProps) {
         </span>
       </div>
       <div className="pt-4 px-1">
-        <div className="font-serif text-[19px] text-[#26241c] mb-[3px]">
+        <div className="font-serif text-[19px] text-[#26241c] mb-[3px] font-medium">
           {props.name}
         </div>
-        <div className="text-[13px] text-[#8a8576] mb-2">{props.sub}</div>
-        <div className="text-[14px] text-pb-green">{fmt(priceFrom)} 起</div>
+        <div className="font-noto-sans-tc text-[13px] text-[#8a8576] mb-2">{props.sub}</div>
+        <div className="font-cormorant text-[14px] text-pb-green font-medium">{fmt(priceFrom)} 起</div>
       </div>
     </Link>
   );
