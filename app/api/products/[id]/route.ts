@@ -63,10 +63,16 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   const updated = await prisma.product.update({
     where: { id },
     data: {
+      series: data.series,
+      seriesName: data.seriesName,
       name: data.name,
+      sub: data.sub,
       description: data.description,
-      price: parseFloat(data.price),
-      image: data.image,
+      bracelet: parseFloat(data.bracelet),
+      necklace: parseFloat(data.necklace),
+      pair: parseFloat(data.pair),
+      stones: data.stones,
+      image: data.image || null,
     },
   });
 

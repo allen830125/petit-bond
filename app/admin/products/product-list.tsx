@@ -6,9 +6,15 @@ import ProductModal from './product-modal';
 
 interface Product {
   id: string;
+  series: string;
+  seriesName: string;
   name: string;
+  sub: string;
   description: string;
-  price: number;
+  bracelet: number;
+  necklace: number;
+  pair: number;
+  stones: string[];
   image?: string;
   aiGenerated: boolean;
   createdAt: string;
@@ -137,7 +143,7 @@ export default function ProductList() {
                   </p>
                   <div className="flex items-center gap-4 mt-3">
                     <span className="text-lg font-semibold text-gray-900">
-                      NT${product.price.toLocaleString()}
+                      成對 NT${product.pair.toLocaleString()}
                     </span>
                     {product.aiGenerated && (
                       <span className="inline-block px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">
