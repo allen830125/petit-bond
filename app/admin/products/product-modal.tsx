@@ -1,8 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-interface Product {
+export interface ProductImage {
+  id: string;
+  url: string;
+  order: number;
+}
+
+export interface Product {
   id: string;
   series: string;
   seriesName: string;
@@ -13,19 +19,17 @@ interface Product {
   necklace: number;
   pair: number;
   stones: string[];
-  image?: string;
+  images: ProductImage[];
   aiGenerated: boolean;
   createdAt: string;
   updatedAt: string;
 }
 
-type ProductFormData = Omit<Product, 'id' | 'createdAt' | 'updatedAt' | 'aiGenerated'>;
-
 interface ProductModalProps {
   isOpen: boolean;
   product?: Product;
   onClose: () => void;
-  onSave: (product: ProductFormData | Product) => Promise<void>;
+  onSave: (formData: FormData) => Promise<void>;
 }
 
 const emptyForm = {
@@ -38,37 +42,59 @@ const emptyForm = {
   necklace: '',
   pair: '',
   stonesRaw: '',
-  image: '',
 };
 
+interface NewImage {
+  file: File;
+  previewUrl: string;
+}
+
 export default function ProductModal({ isOpen, product, onClose, onSave }: ProductModalProps) {
-  const [formData, setFormData] = useState(emptyForm);
+  const [formData, setFormData] = useState(() =>
+    product
+      ? {
+          series: product.series,
+          seriesName: product.seriesName,
+          name: product.name,
+          sub: product.sub,
+          description: product.description,
+          bracelet: product.bracelet.toString(),
+          necklace: product.necklace.toString(),
+          pair: product.pair.toString(),
+          stonesRaw: Array.isArray(product.stones) ? product.stones.join('、') : '',
+        }
+      : emptyForm
+  );
+  const [existingImages, setExistingImages] = useState<ProductImage[]>(product?.images ?? []);
+  const [newImages, setNewImages] = useState<NewImage[]>([]);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    if (product) {
-      setFormData({
-        series: product.series,
-        seriesName: product.seriesName,
-        name: product.name,
-        sub: product.sub,
-        description: product.description,
-        bracelet: product.bracelet.toString(),
-        necklace: product.necklace.toString(),
-        pair: product.pair.toString(),
-        stonesRaw: Array.isArray(product.stones) ? product.stones.join('、') : '',
-        image: product.image || '',
-      });
-    } else {
-      setFormData(emptyForm);
-    }
-    setError('');
-  }, [product, isOpen]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files ?? []);
+    if (files.length === 0) return;
+
+    setNewImages(prev => [
+      ...prev,
+      ...files.map(file => ({ file, previewUrl: URL.createObjectURL(file) })),
+    ]);
+    e.target.value = '';
+  };
+
+  const removeExistingImage = (id: string) => {
+    setExistingImages(prev => prev.filter(img => img.id !== id));
+  };
+
+  const removeNewImage = (index: number) => {
+    setNewImages(prev => {
+      URL.revokeObjectURL(prev[index].previewUrl);
+      return prev.filter((_, i) => i !== index);
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -86,18 +112,20 @@ export default function ProductModal({ isOpen, product, onClose, onSave }: Produ
         .map(s => s.trim())
         .filter(Boolean);
 
-      await onSave({
-        series: formData.series,
-        seriesName: formData.seriesName || formData.series,
-        name: formData.name,
-        sub: formData.sub,
-        description: formData.description,
-        bracelet: parseFloat(formData.bracelet),
-        necklace: parseFloat(formData.necklace || formData.bracelet),
-        pair: parseFloat(formData.pair || formData.bracelet),
-        stones,
-        image: formData.image || undefined,
-      });
+      const body = new FormData();
+      body.append('series', formData.series);
+      body.append('seriesName', formData.seriesName || formData.series);
+      body.append('name', formData.name);
+      body.append('sub', formData.sub);
+      body.append('description', formData.description);
+      body.append('bracelet', parseFloat(formData.bracelet).toString());
+      body.append('necklace', parseFloat(formData.necklace || formData.bracelet).toString());
+      body.append('pair', parseFloat(formData.pair || formData.bracelet).toString());
+      body.append('stones', JSON.stringify(stones));
+      body.append('keepImageIds', JSON.stringify(existingImages.map(img => img.id)));
+      newImages.forEach(({ file }) => body.append('images', file));
+
+      await onSave(body);
 
       onClose();
     } catch (err) {
@@ -113,7 +141,7 @@ export default function ProductModal({ isOpen, product, onClose, onSave }: Produ
     type?: string; placeholder?: string; required?: boolean;
   }) => (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+      <label className="block text-xs font-medium tracking-wide text-taupe-600 mb-1.5">
         {label} {opts?.required !== false && <span className="text-red-500">*</span>}
       </label>
       <input
@@ -123,24 +151,24 @@ export default function ProductModal({ isOpen, product, onClose, onSave }: Produ
         onChange={handleChange}
         placeholder={opts?.placeholder}
         step={opts?.type === 'number' ? '1' : undefined}
-        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full px-3.5 py-2 border border-cream-500 rounded-lg bg-cream-800 text-taupe-800 placeholder-taupe-400 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-gold-400 text-sm"
       />
     </div>
   );
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-          <h2 className="text-xl font-bold text-gray-900">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div className="bg-cream-50 rounded-card-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-cream-50 border-b border-cream-500 px-6 py-4 flex justify-between items-center">
+          <h2 className="font-serif text-xl font-semibold text-taupe-800">
             {product ? '編輯商品' : '新增商品'}
           </h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+          <button onClick={onClose} className="text-taupe-400 hover:text-pb-green text-2xl leading-none transition-colors">×</button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6">
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded">
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
               {error}
             </div>
           )}
@@ -155,7 +183,7 @@ export default function ProductModal({ isOpen, product, onClose, onSave }: Produ
             {field('副標題', 'sub', { placeholder: '人寵成對，共望星空', required: false })}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium tracking-wide text-taupe-600 mb-1.5">
                 商品描述 <span className="text-red-500">*</span>
               </label>
               <textarea
@@ -163,7 +191,7 @@ export default function ProductModal({ isOpen, product, onClose, onSave }: Produ
                 value={formData.description}
                 onChange={handleChange}
                 rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3.5 py-2 border border-cream-500 rounded-lg bg-cream-800 text-taupe-800 placeholder-taupe-400 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-gold-400 text-sm"
                 placeholder="輸入商品描述"
               />
             </div>
@@ -175,21 +203,70 @@ export default function ProductModal({ isOpen, product, onClose, onSave }: Produ
             </div>
 
             {field('石材（逗號分隔）', 'stonesRaw', { placeholder: '月光石、銀', required: false })}
-            {field('圖片 URL', 'image', { placeholder: '/images/product.jpg', required: false })}
+
+            <div>
+              <label className="block text-xs font-medium tracking-wide text-taupe-600 mb-1.5">
+                商品圖片（可多選）
+              </label>
+              {(existingImages.length > 0 || newImages.length > 0) && (
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {existingImages.map(img => (
+                    <div key={img.id} className="relative w-28 h-28">
+                      <img
+                        src={img.url}
+                        alt="預覽"
+                        className="w-28 h-28 object-cover rounded-lg border border-cream-500"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeExistingImage(img.id)}
+                        className="absolute -top-2 -right-2 w-6 h-6 bg-taupe-800 text-cream-50 rounded-full text-xs leading-none hover:bg-red-600 transition-colors"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                  {newImages.map((img, i) => (
+                    <div key={img.previewUrl} className="relative w-28 h-28">
+                      <img
+                        src={img.previewUrl}
+                        alt="預覽"
+                        className="w-28 h-28 object-cover rounded-lg border border-cream-500"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeNewImage(i)}
+                        className="absolute -top-2 -right-2 w-6 h-6 bg-taupe-800 text-cream-50 rounded-full text-xs leading-none hover:bg-red-600 transition-colors"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif"
+                multiple
+                onChange={handleImageSelect}
+                className="w-full text-sm text-taupe-600 file:mr-3 file:py-2 file:px-3.5 file:rounded-lg file:border-0 file:bg-cream-800 file:text-taupe-800 file:text-sm hover:file:bg-cream-500"
+              />
+              <p className="text-xs text-taupe-400 mt-1">圖片會在保存商品時一併上傳</p>
+            </div>
           </div>
 
-          <div className="flex justify-end gap-3 mt-6 sticky bottom-0 bg-white pt-4 border-t">
+          <div className="flex justify-end gap-3 mt-6 sticky bottom-0 bg-cream-50 pt-4 border-t border-cream-500">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50"
+              className="font-noto-sans-tc px-4 py-2 text-sm text-taupe-600 border border-taupe-300 rounded-full hover:bg-cream-100 transition-colors"
             >
               取消
             </button>
             <button
               type="submit"
               disabled={isSaving}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+              className="font-noto-sans-tc px-4 py-2 text-sm bg-pb-green text-cream-100 rounded-full font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
             >
               {isSaving ? '保存中...' : '保存'}
             </button>

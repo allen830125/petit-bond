@@ -13,7 +13,7 @@ Petit Bond 是一個手作寵物飾品電商，採 MVP 架構。
 - **ORM**: Prisma + MySQL
 - **Auth**: NextAuth.js
 - **AI**: Anthropic Claude API（商品描述自動生成）
-- **Deploy**: Zeabur
+- **Deploy**: Vercel（app）+ Railway（MySQL）
 
 ## 專案結構
 
@@ -41,11 +41,12 @@ prisma/
 - API routes 放在 `app/api/` 下
 - 資料庫操作統一透過 Prisma Client
 - 環境變數從 `.env.local` 讀取，不可 hardcode
+- 驗證改動時只跑 `lint`（例如 `npm run lint`），不要使用 `run` skill 啟動 dev server
 
 ## 環境變數
 
 ```env
-DATABASE_URL=        # MySQL 連線字串（Zeabur 提供）
+DATABASE_URL=        # MySQL 連線字串（Railway 提供）
 ANTHROPIC_API_KEY=   # Claude API key
 NEXTAUTH_SECRET=     # 隨機字串
 NEXTAUTH_URL=        # 部署後的網址
@@ -76,4 +77,4 @@ NEXTAUTH_URL=        # 部署後的網址
 - [ ] Phase 2：買家前台頁面
 - [ ] Phase 3：賣家後台
 - [ ] Phase 4：AI 描述生成
-- [ ] Phase 5：Zeabur 部署
+- [ ] Phase 5：Vercel 部署

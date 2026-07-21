@@ -3,10 +3,12 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
-import { PRODUCTS } from '@/lib/products';
+import { useRequest } from '@/lib/hooks';
+import { Product } from '@/lib/products';
 
 export default function HomePage() {
   const router = useRouter();
+  const { data: products = [] } = useRequest<Product[]>('/api/products/public');
 
   return (
     <div>
@@ -101,7 +103,7 @@ export default function HomePage() {
             </h2>
           </div>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[clamp(20px,3vw,34px)]">
-            {PRODUCTS.map((product) => (
+            {(products || []).map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
           </div>

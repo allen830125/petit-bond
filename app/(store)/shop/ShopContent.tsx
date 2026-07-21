@@ -2,17 +2,20 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
-import { PRODUCTS } from '@/lib/products';
+import { useRequest } from '@/lib/hooks';
+import { Product } from '@/lib/products';
 
 export function ShopContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const series = searchParams.get('series') || 'all';
 
+  const { data: products = [] } = useRequest<Product[]>('/api/products/public');
+
   const filtered =
     series === 'all'
-      ? PRODUCTS
-      : PRODUCTS.filter((p) => p.series === series);
+      ? products || []
+      : (products || []).filter((p) => p.series === series);
 
   const handleFilterChange = (newSeries: string) => {
     if (newSeries === 'all') {

@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
@@ -10,9 +9,12 @@ export default function Nav() {
   const searchParams = useSearchParams();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
+  const navKey = `${pathname}?${searchParams.toString()}`;
+  const [prevNavKey, setPrevNavKey] = useState(navKey);
+  if (navKey !== prevNavKey) {
+    setPrevNavKey(navKey);
     setMenuOpen(false);
-  }, [pathname, searchParams]);
+  }
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';

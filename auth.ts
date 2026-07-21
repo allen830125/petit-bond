@@ -1,4 +1,3 @@
-import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
@@ -48,15 +47,21 @@ export const authOptions = {
     signIn: '/admin/login',
   },
   callbacks: {
-    jwt: async ({ token, user }: any) => {
+    // authOptions must stay structurally untyped (no NextAuthOptions annotation) so that
+    // getServerSession(authOptions) can infer the augmented Session type across the app;
+    // next-auth v4's own CallbacksOptions typings aren't consistent enough to type these
+    // params without breaking that inference, hence the explicit any here.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    jwt: async ({ token, user }: { token: any; user: any }) => {
       if (user) {
         token.id = user.id;
       }
       return token;
     },
-    session: async ({ session, token }: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    session: async ({ session, token }: { session: any; token: any }) => {
       if (session.user) {
-        session.user.id = token.id as string;
+        session.user.id = token.id;
       }
       return session;
     },

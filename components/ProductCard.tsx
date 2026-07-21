@@ -13,7 +13,7 @@ export default function ProductCard(props: ProductCardProps) {
     <Link href={`/shop/${props.id}`} className="cursor-pointer">
       <div className="relative rounded-card overflow-hidden aspect-[4/5] bg-bg-photo">
         <Image
-          src={props.image || '/placeholder.jpg'}
+          src={props.images[0]?.url || '/placeholder.jpg'}
           alt={props.name}
           fill
           className="object-cover"

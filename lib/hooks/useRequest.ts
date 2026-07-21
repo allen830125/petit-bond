@@ -9,17 +9,17 @@ interface UseRequestState<T> {
   error: ApiError | null;
 }
 
-interface UseRequestOptions extends FetchOptions {
+interface UseRequestOptions<T = unknown> extends FetchOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   skip?: boolean;
   auto?: boolean;
-  onSuccess?: (data: any) => void;
+  onSuccess?: (data: T) => void;
   onError?: (error: ApiError) => void;
 }
 
-export function useRequest<T = any>(
+export function useRequest<T = unknown>(
   url?: string,
-  options: UseRequestOptions = {}
+  options: UseRequestOptions<T> = {}
 ) {
   const {
     method = 'GET',
@@ -37,8 +37,8 @@ export function useRequest<T = any>(
   });
 
   const execute = async (
-    body?: any,
-    executeOptions: UseRequestOptions & { url?: string } = {}
+    body?: unknown,
+    executeOptions: UseRequestOptions<T> & { url?: string } = {}
   ) => {
     const finalUrl = executeOptions.url || url;
 
@@ -50,12 +50,12 @@ export function useRequest<T = any>(
 
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
+    const isFormData = body instanceof FormData;
+
     const { data, error } = await fetchApi<T>(finalUrl, {
       method: finalMethod,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: body ? JSON.stringify(body) : undefined,
+      headers: isFormData ? undefined : { 'Content-Type': 'application/json' },
+      body: isFormData ? body : body ? JSON.stringify(body) : undefined,
       ...fetchOptions,
       ...executeOptions,
     });

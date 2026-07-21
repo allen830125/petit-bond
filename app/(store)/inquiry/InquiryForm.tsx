@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { PRODUCTS, Variant, fmt } from '@/lib/products';
+import { useRequest } from '@/lib/hooks';
+import { Product, Variant, fmt } from '@/lib/products';
 
 export function InquiryForm() {
   const searchParams = useSearchParams();
@@ -10,6 +11,12 @@ export function InquiryForm() {
 
   const productId = searchParams.get('productId');
   const variantParam = searchParams.get('variant') as Variant | null;
+
+  const { data: products, loading: productsLoading } = useRequest<Product[]>('/api/products/public');
+  const { execute: submitInquiry, loading: submitting, error: submitError } = useRequest(
+    '/api/inquiries',
+    { method: 'POST', auto: false }
+  );
 
   const [submitted, setSubmitted] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(productId || '');
@@ -22,7 +29,7 @@ export function InquiryForm() {
   const [notes, setNotes] = useState('');
 
   const product = selectedProduct
-    ? PRODUCTS.find((p) => p.id === selectedProduct)
+    ? products?.find((p) => p.id === selectedProduct)
     : null;
 
   const variantOptions = [
@@ -50,7 +57,7 @@ export function InquiryForm() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!name || !contact) {
@@ -63,7 +70,7 @@ export function InquiryForm() {
       return;
     }
 
-    console.log({
+    const { error } = await submitInquiry({
       productId: selectedProduct,
       variant,
       qty,
@@ -74,7 +81,9 @@ export function InquiryForm() {
       notes,
     });
 
-    setSubmitted(true);
+    if (!error) {
+      setSubmitted(true);
+    }
   };
 
   if (submitted) {
@@ -130,10 +139,13 @@ export function InquiryForm() {
                   setVariant('pair');
                 }}
                 required
+                disabled={productsLoading}
                 className="font-noto-sans-tc w-full px-[14px] py-[13px] border border-taupe-300 rounded-[10px] text-taupe-800 placeholder-taupe-400 focus:outline-none focus:ring-2 focus:ring-pb-green focus:ring-offset-2 text-[15px]"
               >
-                <option value="">-- 選擇商品 --</option>
-                {PRODUCTS.map((p) => (
+                <option value="">
+                  {productsLoading ? '載入商品中...' : '-- 選擇商品 --'}
+                </option>
+                {products?.map((p) => (
                   <option key={p.id} value={p.id}>
                     {p.name} （{p.seriesName}）
                   </option>
@@ -262,11 +274,17 @@ export function InquiryForm() {
 
             {/* SUBMIT BUTTON */}
             <div>
+              {submitError && (
+                <p className="font-noto-sans-tc text-[13px] text-red-600 mb-3 text-center">
+                  {submitError.message}
+                </p>
+              )}
               <button
                 type="submit"
-                className="font-noto-sans-tc cursor-pointer w-full bg-pb-green text-cream-200 py-[15px] rounded-pill font-medium text-[14px] tracking-widest hover:shadow-lg transition-all"
+                disabled={submitting}
+                className="font-noto-sans-tc cursor-pointer w-full bg-pb-green text-cream-200 py-[15px] rounded-pill font-medium text-[14px] tracking-widest hover:shadow-lg transition-all disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                送出預購
+                {submitting ? '送出中...' : '送出預購'}
               </button>
               <p className="font-noto-sans-tc text-[12px] text-taupe-500 mt-4 text-center">
                 送出不需付款，確認細節後再行報價

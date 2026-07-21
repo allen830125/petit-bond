@@ -3,15 +3,26 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { PRODUCTS, Variant, fmt } from '@/lib/products';
+import { useRequest } from '@/lib/hooks';
+import { Product, Variant, fmt } from '@/lib/products';
 
 export default function ProductDetailPage() {
   const router = useRouter();
   const params = useParams();
   const id = params.id as string;
 
-  const product = PRODUCTS.find((p) => p.id === id);
+  const { data: products, loading } = useRequest<Product[]>('/api/products/public');
+  const product = products?.find((p) => p.id === id);
   const [variant, setVariant] = useState<Variant>('pair');
+  const [activeImage, setActiveImage] = useState(0);
+
+  if (loading) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <p className="text-taupe-600">載入中...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -55,13 +66,28 @@ export default function ProductDetailPage() {
           <div className="flex-1 basis-[320px]">
             <div className="relative rounded-[18px] overflow-hidden aspect-[4/5] bg-taupe-300">
               <Image
-                src={product.image || '/placeholder.jpg'}
+                src={product.images[activeImage]?.url || '/placeholder.jpg'}
                 alt={product.name}
                 fill
                 className="object-cover"
                 priority
               />
             </div>
+            {product.images.length > 1 && (
+              <div className="flex gap-2 mt-3">
+                {product.images.map((img, i) => (
+                  <button
+                    key={img.id}
+                    onClick={() => setActiveImage(i)}
+                    className={`relative w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${
+                      i === activeImage ? 'border-pb-green' : 'border-transparent'
+                    }`}
+                  >
+                    <Image src={img.url} alt={`${product.name} ${i + 1}`} fill className="object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* RIGHT: DETAILS */}
